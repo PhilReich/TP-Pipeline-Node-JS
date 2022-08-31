@@ -13,7 +13,7 @@ jobs:
       - run: echo "Running on branch $GITHUB_REF"
 
   example_matrix:
-    if: $GITHUB_REF == "refs/heads/develop"
+    if: GITHUB_REF == "refs/heads/develop"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
