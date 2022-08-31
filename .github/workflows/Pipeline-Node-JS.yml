@@ -6,13 +6,14 @@ on: [push]
 
 jobs:
 
-  master-check:
+  affiche_branche:
     # if: github.ref != 'develop/features'
     runs-on: ubuntu-latest
     steps:
       - run: echo "Running on branch $GITHUB_REF"
 
   example_matrix:
+    if: $GITHUB_REF == "refs/heads/develop"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
