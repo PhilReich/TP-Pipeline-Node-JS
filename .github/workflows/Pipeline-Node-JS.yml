@@ -13,7 +13,7 @@ jobs:
       - run: echo "commit =  $GITHUB_commit_comment"
 
   commit_types_matrix_check:
-    if: (github.ref == 'refs/heads/features'  || github.ref == 'refs/heads/hotfix')
+    if: (github.ref == 'refs/heads/features' || github.ref == 'refs/heads/hotfix')
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
