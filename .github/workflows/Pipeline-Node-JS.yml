@@ -1,0 +1,24 @@
+# ticket de validation des conventional commits
+name: NF7-DO-03
+
+# déclenchement sur les push only
+on: [push]
+
+jobs:
+
+  master-check:
+    # if: github.ref != 'develop/features'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running on branch $GITHUB_REF"
+
+  example_matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        # liste des commit_types autorisés
+        commit_types: ["build:", "ci:", "chore:", "docs:", "feat:", "fix:", "perf:", "refactor:", "revert:", "style:", "test:"]
+    steps:
+      - name: afficher qui fait quoi
+        run: echo "${{matrix.commit_types}}"
