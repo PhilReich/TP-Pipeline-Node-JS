@@ -9,7 +9,7 @@ Le composant calculatrice appelle un service qui contient l'ensemble de la logiq
 
 ## Branches
 
-Ce template inclu deux branches : 
+Ce template inclut deux branches : 
 - main
 - tests
 
