@@ -10,7 +10,7 @@ jobs:
     # if: github.ref != 'develop/features'
     runs-on: ubuntu-latest
     steps:
-      - run: echo "commit =  $GITHUB_commit_comment"
+      - run: echo "commit =  $GITHUB_commit_comment, $GITHUB.commit.comment, $GITHUB_commit.comment"
 
   commit_types_matrix_check:
     if: (github.ref == 'refs/heads/features' || github.ref == 'refs/heads/hotfix')
@@ -22,5 +22,5 @@ jobs:
         commit_types: ["build:", "ci:", "chore:", "docs:", "feat:", "fix:", "perf:", "refactor:", "revert:", "style:", "test:"]
     steps:
       - name: tester qui fait  quoi
-        if: github.commit_comment  startswith ${{matrix.commit_types}}
-        run: echo "${{matrix.commit_types}}"
+        if: startsWith( ${{github.commit_comment}}, ${{matrix.commit_types}} )
+        run: echo "le commit commence par ${{matrix.commit_types}}"
