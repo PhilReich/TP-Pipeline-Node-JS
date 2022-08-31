@@ -10,7 +10,7 @@ jobs:
     # if: github.ref != 'develop/features'
     runs-on: ubuntu-latest
     steps:
-      - run: echo "commit =  $GITHUB_commit_comment, $GITHUB.commit.comment, $GITHUB_commit.comment"
+      - run: echo "commit = $github.event.commit.message $GITHUB_commit_comment, $GITHUB.commit.comment, $GITHUB_commit.comment"
 
   commit_types_matrix_check:
     if: (github.ref == 'refs/heads/features' || github.ref == 'refs/heads/hotfix')
