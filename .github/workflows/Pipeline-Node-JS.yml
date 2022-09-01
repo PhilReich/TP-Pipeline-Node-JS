@@ -5,14 +5,13 @@ name: NF7-DO-03
 on: push
 
 jobs:
-
   affiche_commit:
-    # if: github.ref != 'develop/features'
     runs-on: ubuntu-latest
     steps:
+      # affiche le message de commit
       - run: echo "commit = ${{github.event.head_commit.message}} "
-
   commit_types_matrix_check:
+    # teste si le push a lieu sur les branches /features ou /hotfix
     # if: (github.ref == 'refs/heads/features' || github.ref == 'refs/heads/hotfix')
     runs-on: ubuntu-latest
     strategy:
@@ -22,5 +21,6 @@ jobs:
         commit_types: ["build:", "ci:", "chore:", "docs:", "feat:", "fix:", "perf:", "refactor:", "revert:", "style:", "test:"]
     steps:
       - name: tester qui fait  quoi
+        # regarde si le cessage commit commence par un des commit_types autorisés
         if: startsWith( ${{github.event.head_commit.message}}, ${{matrix.commit_types}} )
-        run: echo "le commit commence par ${{matrix.commit_types}}"
+        run: echo "le commit commence par ${{matrix.commit_types}} ${{github.event.head_commit.message}}, ${{matrix.commit_types}}"
