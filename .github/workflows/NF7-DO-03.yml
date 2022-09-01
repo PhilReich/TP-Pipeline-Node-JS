@@ -8,11 +8,12 @@ jobs:
   affiche_commit:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       # affiche le message de commit
-      - run: echo "commit = ${{github.event.head_commit.message}} "
+        run: echo "commit = ${{github.event.head_commit.message}} "
   commit_types_matrix_check:
     # teste si le push a lieu sur les branches /features ou /hotfix
-    # if: (github.ref == 'refs/heads/features' || github.ref == 'refs/heads/hotfix')
+    if: ((github.ref == 'refs/heads/features' || github.ref == 'refs/heads/hotfix') &&  () )
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -20,7 +21,8 @@ jobs:
         # liste des commit_types autorisés
         commit_types: ["build:", "ci:", "chore:", "docs:", "feat:", "fix:", "perf:", "refactor:", "revert:", "style:", "test:"]
     steps:
-      - name: tester qui fait  quoi
-        # regarde si le cessage commit commence par un des commit_types autorisés
+      - name: tester si le header du commit est dans la matrix
+        # regarde si le message commit commence par un des commit_types autorisés
         if: startsWith( ${{github.event.head_commit.message}}, ${{matrix.commit_types}} )
-        run: echo "le commit commence par ${{matrix.commit_types}} ${{github.event.head_commit.message}}, ${{matrix.commit_types}}"
+        # affiche le commit et son type
+        run: echo "le commit ${{github.event.head_commit.message}}, commence par ${{matrix.commit_types}} "

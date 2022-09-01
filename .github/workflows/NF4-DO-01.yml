@@ -1,0 +1,21 @@
+# ticket de création de branche automatique
+name: NF4-DO-01
+
+on:
+  issues:
+    types:
+      # déclenche le trigger à l'assignation d'une issue
+      - assigned
+jobs:
+  create_branch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+    - name: Create  branch
+      env:
+        # lit le titre de l'issue, 
+        developper_branch: ${{ github.event.issue.title }}
+      # et crée la branche de ce nom, pour se placer dessus
+      run: git checkout -b release/v${{ github.event.issue.title }}
+

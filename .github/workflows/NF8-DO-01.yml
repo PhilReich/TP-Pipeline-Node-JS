@@ -1,0 +1,37 @@
+# ticket d'automatisation des test à l'ouverture d'une PR
+name: NF8-DO-01
+
+# déclenchement sur les PR only
+on: 
+  pull_request:
+    types:
+      # à l'ouverture d'une PR
+      - opened
+    branches:
+      # PR vers la branche develop
+      - 'develop/'
+jobs:
+  branch_check:
+    # teste si la PR a lieu depuis les branches /features/ vers /develop
+    # if: (github.ref == 'refs/heads/features' || github.ref == 'refs/heads/hotfix')
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        # liste des versions de Node-JS
+        node_version: [14, 16]      
+      steps:
+        - uses: actions/checkout@v3
+          name: tester la branche
+          # regarde si la branche de la PR commence par /head_features/
+          if: startsWith( ${{github.head_ref}}, head_features/ )
+          # affiche le succès de la PR /features/ -> /develop
+          run: echo "la pull_request vers /develop vient bien de ${{github.head_ref}}} "
+
+
+
+   affiche_commit:
+    runs-on: ubuntu-latest
+    steps:
+      # affiche le message de commit
+      - run: echo "commit = ${{github.event.head_commit.message}} "
